@@ -96,8 +96,8 @@ jobs:
         run: yum install -y ${{ matrix.python-package }}
       - name: Which python
         run: which python
-      - name: Which python3
-        run: which python3
+      - name: Python version
+        run: python --version
       - name: Enable python
         run: scl enable ${{ matrix.python-package }} bash
       - name: Which python

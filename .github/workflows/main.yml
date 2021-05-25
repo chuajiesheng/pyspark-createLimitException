@@ -40,13 +40,12 @@ jobs:
     container: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ 'registry.access.redhat.com/ubi8/ubi:8.1', 'centos:7', 'centos:8' ]
+        os: [ 'registry.access.redhat.com/ubi8/ubi:latest', 'registry.access.redhat.com/ubi7/ubi:latest', 'centos:7', 'centos:8' ]
+        java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
     steps:
       - uses: actions/checkout@v2
-      - name: Search for java package
-        run: yum search java
-      - name: Search for openjdk package
-        run: yum search openjdk
+      - name: Search for python package
+        run: yum search python
       - name: Install java
-        run: yum install -y java-1.8.0-openjdk
+        run: yum install -y ${{ matrix.java-package }}
 

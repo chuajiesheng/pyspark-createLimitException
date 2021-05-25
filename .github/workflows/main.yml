@@ -42,4 +42,4 @@ jobs:
           distribution: ${{ matrix.jdk-distribution }}
           java-version: ${{ matrix.jdk-version }}
       - name: Check java version
-        run: javac --version
+        run: java --version

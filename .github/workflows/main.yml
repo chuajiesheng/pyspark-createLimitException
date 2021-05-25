@@ -52,7 +52,7 @@ jobs:
       - name: Install python
         run: yum install -y ${{ matrix.python-package }}
       - name: Check python version
-        run: python --version
+        run: python3 --version
   test-redhat:
     runs-on: ubuntu-latest
     container: ${{ matrix.os }}
@@ -70,5 +70,5 @@ jobs:
       - name: Install python
         run: yum install -y ${{ matrix.python-package }}
       - name: Check python version
-        run: python --version
+        run: python3 --version
 

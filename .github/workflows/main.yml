@@ -35,12 +35,30 @@ jobs:
 #        run: pip install -r requirements.txt
 #      - name: Run sample
 #        run: python ${{ matrix.test-file }}
-  test-centos:
+  test-centos7:
     runs-on: ubuntu-latest
-    container: ${{ matrix.os }}
+    container: 'centos:7',
     strategy:
       matrix:
-        os: [ 'centos:7', 'centos:8' ]
+        java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
+        python-package: [ 'python3' ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install java
+        run: yum install -y ${{ matrix.java-package }}
+      - name: Check java version
+        run: java -version
+      - name: Install python
+        run: yum install -y ${{ matrix.python-package }}
+      - name: Check python version
+        run: python3 --version
+      - name: Install requirements.txt
+        run: pip3 install -r requirements.txt
+  test-centos8:
+    runs-on: ubuntu-latest
+    container: 'centos:8'
+    strategy:
+      matrix:
         java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
         python-package: [ 'python36', 'python38' ]
     steps:
@@ -55,14 +73,32 @@ jobs:
         run: python3 --version
       - name: Install requirements.txt
         run: pip3 install -r requirements.txt
-  test-redhat:
+  test-redhat7:
     runs-on: ubuntu-latest
-    container: ${{ matrix.os }}
+    container: 'registry.access.redhat.com/ubi7/ubi:latest'
     strategy:
       matrix:
-        os: [ 'centos:7', 'centos:8' ]
         java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
         python-package: [ 'rh-python36', 'rh-python38' ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install java
+        run: yum install -y ${{ matrix.java-package }}
+      - name: Check java version
+        run: java -version
+      - name: Install python
+        run: yum install -y ${{ matrix.python-package }}
+      - name: Check python version
+        run: python3 --version
+      - name: Install requirements.txt
+        run: pip3 install -r requirements.txt
+  test-redhat8:
+    runs-on: ubuntu-latest
+    container: 'registry.access.redhat.com/ubi8/ubi:latest'
+    strategy:
+      matrix:
+        java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
+        python-package: [ 'python36', 'python38' ]
     steps:
       - uses: actions/checkout@v2
       - name: Install java

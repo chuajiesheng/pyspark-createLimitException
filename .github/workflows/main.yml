@@ -43,12 +43,12 @@ jobs:
         os: [ 'centos:6', 'centos:7', 'centos:8' ]
     steps:
       - name: Install Git
-        run: yum install git -y
+        run: sudo yum install -y git
       - uses: actions/checkout@v2
       - name: Search for java package
-        run: yum search java
+        run: sudo yum search java
       - name: Search for openjdk package
-        run: yum search openjdk
+        run: sudo yum search openjdk
       - name: Install java
-        run: yum install java-1.8.0-openjdk
+        run: sudo yum install java-1.8.0-openjdk
 

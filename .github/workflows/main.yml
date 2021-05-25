@@ -43,3 +43,5 @@ jobs:
           java-version: ${{ matrix.jdk-version }}
       - name: Check java version
         run: java -version
+      - name: Install requirements.txt
+        run: pip install -r requirements.txt

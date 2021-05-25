@@ -40,7 +40,7 @@ jobs:
     container: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ 'centos:6', 'centos:7', 'centos:8' ]
+        os: [ 'registry.access.redhat.com/ubi8/ubi:8.1', 'centos:7', 'centos:8' ]
     steps:
       - uses: actions/checkout@v2
       - name: Search for java package

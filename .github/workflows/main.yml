@@ -85,15 +85,20 @@ jobs:
     strategy:
       matrix:
         java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
-        python-package: [ 'https://mirrors.edge.kernel.org/centos/7/os/x86_64/Packages/python3-3.6.8-17.el7.x86_64.rpm' ]
     steps:
       - uses: actions/checkout@v2
       - name: Install java
         run: yum install -y ${{ matrix.java-package }}
       - name: Check java version
         run: java -version
+      - name: Install python3-libs
+        run: yum install -y https://mirrors.edge.kernel.org/centos/7/os/x86_64/Packages/python3-libs-3.6.8-17.el7.x86_64.rpm
+      - name: Install python3-pip
+        run: yum install -y https://mirrors.edge.kernel.org/centos/7/os/x86_64/Packages/python3-pip-9.0.3-8.el7.noarch.rpm
+      - name: Install python3-setuptools
+        run: yum install -y https://mirrors.edge.kernel.org/centos/7/os/x86_64/Packages/python3-setuptools-39.2.0-10.el7.noarch.rpm
       - name: Install python
-        run: yum install -y ${{ matrix.python-package }}
+        run: yum install -y https://mirrors.edge.kernel.org/centos/7/os/x86_64/Packages/python3-3.6.8-17.el7.x86_64.rpm
       - name: Check python version
         run: python3 --version
       - name: Install requirements.txt

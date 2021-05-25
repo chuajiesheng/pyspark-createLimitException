@@ -1,0 +1,8 @@
+id,name,b/g,age,height,schooling,birth.date,array_prop
+c1,Andy,boy,4,0.83,False,2016-02-12,
+c2,Becky,girl,3,0.75,False,2017-05-05,
+c3,Chuck,,7,,True,,
+c3,,boy,,1.33,,2013-10-15,
+c4,Dawn,,5,1.12,,2013-10-15,1
+,Zack,boy,,,,,
+,Zork,boy,,,,,

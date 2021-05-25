@@ -35,87 +35,57 @@ jobs:
 #        run: pip install -r requirements.txt
 #      - name: Run sample
 #        run: python ${{ matrix.test-file }}
-  test-centos7:
-    runs-on: ubuntu-latest
-    container: 'centos:7'
-    strategy:
-      matrix:
-        java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
-        python-package: [ 'python3' ]
-        test-file: ['sample.py', 'sample2.py']
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install java
-        run: yum install -y ${{ matrix.java-package }}
-      - name: Check java version
-        run: java -version
-      - name: Install python
-        run: yum install -y ${{ matrix.python-package }}
-      - name: Check python version
-        run: python3 --version
-      - name: Install requirements.txt
-        run: pip3 install -r requirements.txt
-      - name: Run sample
-        run: python3 ${{ matrix.test-file }}
-  test-centos8:
-    runs-on: ubuntu-latest
-    container: 'centos:8'
-    strategy:
-      matrix:
-        java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
-        python-package: [ 'python36', 'python38' ]
-        test-file: ['sample.py', 'sample2.py']
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install java
-        run: yum install -y ${{ matrix.java-package }}
-      - name: Check java version
-        run: java -version
-      - name: Install python
-        run: yum install -y ${{ matrix.python-package }}
-      - name: Check python version
-        run: python3 --version
-      - name: Install requirements.txt
-        run: pip3 install -r requirements.txt
-      - name: Run sample
-        run: python3 ${{ matrix.test-file }}
+#  test-centos7:
+#    runs-on: ubuntu-latest
+#    container: 'centos:7'
+#    strategy:
+#      matrix:
+#        java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
+#        python-package: [ 'python3' ]
+#        test-file: ['sample.py', 'sample2.py']
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Install java
+#        run: yum install -y ${{ matrix.java-package }}
+#      - name: Check java version
+#        run: java -version
+#      - name: Install python
+#        run: yum install -y ${{ matrix.python-package }}
+#      - name: Check python version
+#        run: python3 --version
+#      - name: Install requirements.txt
+#        run: pip3 install -r requirements.txt
+#      - name: Run sample
+#        run: python3 ${{ matrix.test-file }}
+#  test-centos8:
+#    runs-on: ubuntu-latest
+#    container: 'centos:8'
+#    strategy:
+#      matrix:
+#        java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
+#        python-package: [ 'python36', 'python38' ]
+#        test-file: ['sample.py', 'sample2.py']
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Install java
+#        run: yum install -y ${{ matrix.java-package }}
+#      - name: Check java version
+#        run: java -version
+#      - name: Install python
+#        run: yum install -y ${{ matrix.python-package }}
+#      - name: Check python version
+#        run: python3 --version
+#      - name: Install requirements.txt
+#        run: pip3 install -r requirements.txt
+#      - name: Run sample
+#        run: python3 ${{ matrix.test-file }}
   test-redhat7:
     runs-on: ubuntu-latest
     container: 'registry.access.redhat.com/ubi7/ubi:latest'
     strategy:
       matrix:
         java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
-        python-package: [ 'rh-python36', 'rh-python38' ]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install java
-        run: yum install -y ${{ matrix.java-package }}
-      - name: Check java version
-        run: java -version
-      - name: Install python
-        run: yum install -y ${{ matrix.python-package }}
-      - name: Which python
-        run: which python
-      - name: Python version
-        run: python --version
-      - name: Enable python
-        run: scl enable ${{ matrix.python-package }} bash
-      - name: Which python
-        run: which python
-      - name: Which python3
-        run: which python3
-      - name: Check python version
-        run: python3 --version
-      - name: Install requirements.txt
-        run: pip3 install -r requirements.txt
-  test-redhat8:
-    runs-on: ubuntu-latest
-    container: 'registry.access.redhat.com/ubi8/ubi:latest'
-    strategy:
-      matrix:
-        java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
         python-package: [ 'python36', 'python38' ]
-        test-file: ['sample.py', 'sample2.py']
     steps:
       - uses: actions/checkout@v2
       - name: Install java
@@ -124,10 +94,36 @@ jobs:
         run: java -version
       - name: Install python
         run: yum install -y ${{ matrix.python-package }}
+      - name: Install epel
+        run: yum install -y epel-release
+      - name: Search for python
+        run: yum search python
+      - name: Install python
+        run: yum install -y ${{ matrix.python-package }}
       - name: Check python version
         run: python3 --version
       - name: Install requirements.txt
         run: pip3 install -r requirements.txt
-      - name: Run sample
-        run: python3 ${{ matrix.test-file }}
+#  test-redhat8:
+#    runs-on: ubuntu-latest
+#    container: 'registry.access.redhat.com/ubi8/ubi:latest'
+#    strategy:
+#      matrix:
+#        java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
+#        python-package: [ 'python36', 'python38' ]
+#        test-file: ['sample.py', 'sample2.py']
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Install java
+#        run: yum install -y ${{ matrix.java-package }}
+#      - name: Check java version
+#        run: java -version
+#      - name: Install python
+#        run: yum install -y ${{ matrix.python-package }}
+#      - name: Check python version
+#        run: python3 --version
+#      - name: Install requirements.txt
+#        run: pip3 install -r requirements.txt
+#      - name: Run sample
+#        run: python3 ${{ matrix.test-file }}
 

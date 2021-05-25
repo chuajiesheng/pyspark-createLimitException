@@ -40,9 +40,13 @@ jobs:
     container: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ 'centos6', 'centos7', 'centos8' ]
+        os: [ 'centos:6', 'centos:7', 'centos:8' ]
     steps:
       - uses: actions/checkout@v2
+      - name: Search for java package
+        run: yum search java
+      - name: Search for openjdk package
+        run: yum search openjdk
       - name: Install java
         run: yum install java-1.8.0-openjdk
 

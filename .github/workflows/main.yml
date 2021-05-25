@@ -85,17 +85,13 @@ jobs:
     strategy:
       matrix:
         java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
-        python-package: [ 'python36', 'python38' ]
+        python-package: [ 'https://mirrors.edge.kernel.org/centos/7/os/x86_64/Packages/python3-3.6.8-17.el7.x86_64.rpm' ]
     steps:
       - uses: actions/checkout@v2
       - name: Install java
         run: yum install -y ${{ matrix.java-package }}
       - name: Check java version
         run: java -version
-      - name: Install epel
-        run: yum install -y epel-release
-      - name: Search for python
-        run: yum search python
       - name: Install python
         run: yum install -y ${{ matrix.python-package }}
       - name: Check python version

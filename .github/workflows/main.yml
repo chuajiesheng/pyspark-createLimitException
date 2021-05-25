@@ -40,15 +40,35 @@ jobs:
     container: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ 'registry.access.redhat.com/ubi8/ubi:latest', 'registry.access.redhat.com/ubi7/ubi:latest', 'centos:7', 'centos:8' ]
+        os: [ 'centos:7', 'centos:8' ]
         java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
         python-package: [ 'python36', 'python38' ]
     steps:
       - uses: actions/checkout@v2
       - name: Install java
         run: yum install -y ${{ matrix.java-package }}
-      - name: Search for python package
-        run: yum search python
+      - name: Check java version
+        run: java -version
       - name: Install python
         run: yum install -y ${{ matrix.python-package }}
+      - name: Check python version
+        run: python --version
+  test-redhat:
+    runs-on: ubuntu-latest
+    container: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ 'centos:7', 'centos:8' ]
+        java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
+        python-package: [ 'rh-python36', 'rh-python38' ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install java
+        run: yum install -y ${{ matrix.java-package }}
+      - name: Check java version
+        run: java -version
+      - name: Install python
+        run: yum install -y ${{ matrix.python-package }}
+      - name: Check python version
+        run: python --version
 

@@ -42,10 +42,13 @@ jobs:
       matrix:
         os: [ 'registry.access.redhat.com/ubi8/ubi:latest', 'registry.access.redhat.com/ubi7/ubi:latest', 'centos:7', 'centos:8' ]
         java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
+        python-package: [ 'python36', 'python38' ]
     steps:
       - uses: actions/checkout@v2
-      - name: Search for python package
-        run: yum search python
       - name: Install java
         run: yum install -y ${{ matrix.java-package }}
+      - name: Search for python package
+        run: yum search python
+      - name: Install python
+        run: yum install -y ${{ matrix.python-package }}
 

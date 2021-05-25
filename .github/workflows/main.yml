@@ -42,6 +42,7 @@ jobs:
       matrix:
         java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
         python-package: [ 'python3' ]
+        test-file: ['sample.py', 'sample2.py']
     steps:
       - uses: actions/checkout@v2
       - name: Install java
@@ -54,6 +55,8 @@ jobs:
         run: python3 --version
       - name: Install requirements.txt
         run: pip3 install -r requirements.txt
+      - name: Run sample
+        run: python ${{ matrix.test-file }}
   test-centos8:
     runs-on: ubuntu-latest
     container: 'centos:8'
@@ -61,6 +64,7 @@ jobs:
       matrix:
         java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
         python-package: [ 'python36', 'python38' ]
+        test-file: ['sample.py', 'sample2.py']
     steps:
       - uses: actions/checkout@v2
       - name: Install java
@@ -73,6 +77,8 @@ jobs:
         run: python3 --version
       - name: Install requirements.txt
         run: pip3 install -r requirements.txt
+      - name: Run sample
+        run: python ${{ matrix.test-file }}
   test-redhat7:
     runs-on: ubuntu-latest
     container: 'registry.access.redhat.com/ubi7/ubi:latest'
@@ -88,6 +94,8 @@ jobs:
         run: java -version
       - name: Install python
         run: yum install -y ${{ matrix.python-package }}
+      - name: Enable python
+        run: scl enable ${{ matrix.python-package }} bash
       - name: Check python version
         run: python3 --version
       - name: Install requirements.txt
@@ -99,6 +107,7 @@ jobs:
       matrix:
         java-package: [ 'java-11-openjdk', 'java-1.8.0-openjdk' ]
         python-package: [ 'python36', 'python38' ]
+        test-file: ['sample.py', 'sample2.py']
     steps:
       - uses: actions/checkout@v2
       - name: Install java
@@ -111,4 +120,6 @@ jobs:
         run: python3 --version
       - name: Install requirements.txt
         run: pip3 install -r requirements.txt
+      - name: Run sample
+        run: python ${{ matrix.test-file }}
 
